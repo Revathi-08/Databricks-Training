@@ -1,3 +1,38 @@
+-- 26
+SELECT department_id, AVG(salary)
+FROM Employee
+GROUP BY department_id
+HAVING AVG(salary) > 55000;
+
+-- 27
+SELECT YEAR(hire_date), COUNT(*)
+FROM Employee
+GROUP BY YEAR(hire_date)
+HAVING COUNT(*) > 1;
+
+-- 28
+SELECT department_id, SUM(salary)
+FROM Employee
+GROUP BY department_id
+HAVING SUM(salary) < 100000;
+
+-- 29
+SELECT department_id, MAX(salary)
+FROM Employee
+GROUP BY department_id
+HAVING MAX(salary) > 75000;
+
+
+
+-- ORDER BY + LIMIT QUERY
+
+-- 30
+SELECT department_id, AVG(salary)
+FROM Employee
+GROUP BY department_id
+ORDER BY AVG(salary) DESC
+LIMIT 1;
+
 -- 31. Select all employees ordered by their salary in ascending order.
 SELECT * 
 FROM Employee
