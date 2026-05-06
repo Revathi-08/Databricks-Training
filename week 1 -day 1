@@ -65,57 +65,169 @@ INSERT INTO Project (project_id, name, department_id) VALUES
 (8, 'Project Theta', 1),
 (9, 'Project Iota', NULL);  -- Project without a department
 
-SELECT name, salary FROM Employee;
 
-SELECT * FROM Employee
-WHERE name LIKE '%a%';
+-- BASIC SELECT QUERIES
 
-SELECT SUM(salary) AS total_salary FROM Employee;
-
-SELECT * FROM Employee
-WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
-
+-- 1
 SELECT * FROM Employee;
 
-SELECT department_id, COUNT(*) AS total_employees
-FROM Employee
-GROUP BY department_id;
+-- 2
+SELECT name, salary FROM Employee;
 
+-- 3
+SELECT name FROM Department;
+
+
+
+-- WHERE CLAUSE QUERIES
+
+-- 4
+SELECT * FROM Employee
+WHERE age > 30;
+
+-- 5
 SELECT * FROM Employee
 WHERE name LIKE 'J%';
 
-SELECT AVG(salary) AS avg_salary FROM Employee;
-
-SELECT * FROM Employee
-WHERE hire_date < '2019-01-01';
-
+-- 6
 SELECT * FROM Employee
 WHERE name LIKE '%e';
 
-SELECT MIN(salary) AS min_salary FROM Employee;
+-- 7
+SELECT * FROM Employee
+WHERE name LIKE '%a%';
 
+-- 8
+SELECT * FROM Employee
+WHERE LENGTH(name) = 9;
+
+-- 9
+SELECT * FROM Employee
+WHERE name LIKE '_o%';
+
+
+
+-- DATE FUNCTIONS QUERIES
+
+-- 10
+SELECT * FROM Employee
+WHERE YEAR(hire_date) = 2020;
+
+-- 11
 SELECT * FROM Employee
 WHERE MONTH(hire_date) = 1;
 
+-- 12
+SELECT * FROM Employee
+WHERE hire_date < '2019-01-01';
+
+-- 13
+SELECT * FROM Employee
+WHERE hire_date >= '2021-03-01';
+
+-- 14
+SELECT * FROM Employee
+WHERE hire_date >= CURRENT_DATE - INTERVAL 2 YEAR;
+
+
+
+-- JOIN QUERY
+
+-- 15
 SELECT e.*
 FROM Employee e
 JOIN Department d
 ON e.department_id = d.department_id
 WHERE d.name = 'IT';
 
-SELECT * FROM Employee
-WHERE LENGTH(name) = 9;
 
-SELECT * FROM Employee
-WHERE age > 30;
 
-SELECT name FROM Department;
+-- AGGREGATE FUNCTIONS
 
-SELECT * FROM Employee
-WHERE name LIKE '_o%';
+-- 16
+SELECT SUM(salary) FROM Employee;
 
-SELECT * FROM Employee
-WHERE YEAR(hire_date) = 2020;
+-- 17
+SELECT AVG(salary) FROM Employee;
 
-SELECT * FROM Employee
-WHERE hire_date >= '2021-03-01';
+-- 18
+SELECT MIN(salary) FROM Employee;
+
+
+
+-- GROUP BY QUERIES
+
+-- 19
+SELECT department_id, COUNT(*)
+FROM Employee
+GROUP BY department_id;
+
+-- 20
+SELECT department_id, AVG(salary)
+FROM Employee
+GROUP BY department_id;
+
+-- 21
+SELECT department_id, SUM(salary)
+FROM Employee
+GROUP BY department_id;
+
+-- 22
+SELECT department_id, AVG(age)
+FROM Employee
+GROUP BY department_id;
+
+-- 23
+SELECT YEAR(hire_date), COUNT(*)
+FROM Employee
+GROUP BY YEAR(hire_date);
+
+-- 24
+SELECT department_id, MAX(salary)
+FROM Employee
+GROUP BY department_id;
+
+
+
+-- HAVING CLAUSE QUERIES
+
+-- 25
+SELECT department_id, COUNT(*)
+FROM Employee
+GROUP BY department_id
+HAVING COUNT(*) > 2;
+
+-- 26
+SELECT department_id, AVG(salary)
+FROM Employee
+GROUP BY department_id
+HAVING AVG(salary) > 55000;
+
+-- 27
+SELECT YEAR(hire_date), COUNT(*)
+FROM Employee
+GROUP BY YEAR(hire_date)
+HAVING COUNT(*) > 1;
+
+-- 28
+SELECT department_id, SUM(salary)
+FROM Employee
+GROUP BY department_id
+HAVING SUM(salary) < 100000;
+
+-- 29
+SELECT department_id, MAX(salary)
+FROM Employee
+GROUP BY department_id
+HAVING MAX(salary) > 75000;
+
+
+
+-- ORDER BY + LIMIT QUERY
+
+-- 30
+SELECT department_id, AVG(salary)
+FROM Employee
+GROUP BY department_id
+ORDER BY AVG(salary) DESC
+LIMIT 1;
